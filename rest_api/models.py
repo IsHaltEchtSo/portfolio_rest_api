@@ -1,12 +1,11 @@
-# from flask import current_app as app
+from flask import current_app as app
 from sqlalchemy import (Column, ForeignKey, Integer, String, Table,
                         create_engine, func, select)
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from typing_extensions import Self
 
-# engine = create_engine(url=app.config['DATABASE_URI'], echo=False)
-engine = create_engine(url='postgresql+psycopg2://deniz@localhost:5555/rest_api', echo=True)
+engine = create_engine(url=app.config['DATABASE_URI'], echo=False)
 Session = sessionmaker(bind=engine, expire_on_commit=False)
 Base = declarative_base(bind=engine)
 
@@ -52,12 +51,18 @@ class User(Base):
             .scalar_subquery()
 
     @hybrid_method
-    def has_follower(self, follower: Self):
-        pass
+    def has_follower(self, follower: Self) -> bool:
+        for f in self.follower:
+            if f.id == follower.id:
+                return True
+        return False
 
     @has_follower.expression
-    def has_follower(cls, follower: Self.__class__):
-        pass
+    def has_follower(cls, follower: Self.__class__) -> bool:
+        return select([bool(1)]) \
+            .where(cls.id == follower_association.c.followee_id) \
+            .where(follower.id == follower_association.c.follower_id) \
+            .scalar_subquery()
 
     def __repr__(self) -> str:
         return f"<User {self.id}: {self.name}>"
