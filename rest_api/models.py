@@ -1,9 +1,9 @@
 # from flask import current_app as app
-from sqlalchemy import create_engine, Table, Column, ForeignKey, Integer, String
-from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
-from sqlalchemy.orm import sessionmaker, declarative_base, relationship
+from sqlalchemy import (Column, ForeignKey, Integer, String, Table,
+                        create_engine, func, select)
+from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
+from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from typing_extensions import Self
-
 
 # engine = create_engine(url=app.config['DATABASE_URI'], echo=False)
 engine = create_engine(url='postgresql+psycopg2://deniz@localhost:5555/rest_api', echo=True)
@@ -33,11 +33,13 @@ class User(Base):
 
     @hybrid_property
     def follower_count(self):
-        pass
+        return len(self.follower)
 
     @follower_count.expression
     def follower_count(cls):
-        pass
+        return select([func.count()]) \
+            .where(cls.id == follower_association.c.followee_id) \
+            .scalar_subquery()
 
     @hybrid_property
     def following_count(self):
