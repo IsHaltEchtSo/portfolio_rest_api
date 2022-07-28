@@ -43,11 +43,13 @@ class User(Base):
 
     @hybrid_property
     def following_count(self):
-        pass
+        return len(self.following)
 
     @following_count.expression
-    def following_count(self):
-        pass
+    def following_count(cls):
+        return select([func.count()]) \
+            .where(cls.id == follower_association.c.follower_id) \
+            .scalar_subquery()
 
     @hybrid_method
     def has_follower(self, follower: Self):
