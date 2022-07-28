@@ -1,9 +1,10 @@
 from flask import current_app as app
-from sqlalchemy import (Column, ForeignKey, Integer, String, Table,
+from sqlalchemy import Column, ForeignKey, Integer, String, Table, \
                         create_engine, func, select)
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from typing_extensions import Self
+
 
 engine = create_engine(url=app.config['DATABASE_URI'], echo=False)
 Session = sessionmaker(bind=engine, expire_on_commit=False)
