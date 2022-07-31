@@ -16,7 +16,7 @@ follower_association = Table(
     Column('followee_id', ForeignKey('user.id'), primary_key=True)
 )
 
-
+#TODO change User-class name to UserModel-class name
 class User(Base):
     __tablename__ = 'user'
     
@@ -29,6 +29,10 @@ class User(Base):
         primaryjoin=follower_association.c.followee_id == id,
         secondaryjoin=follower_association.c.follower_id ==id
     )
+
+    def __init__(self, name: str, age: int) -> None:
+        self.name = name
+        self.age = age
 
     @hybrid_property
     def follower_count(self) -> int:
