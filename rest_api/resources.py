@@ -5,7 +5,7 @@ from rest_api.schemas import UserSchema
 from flask import request
 from flask_restful import Resource
 
-#TODO add type hints for resource methods
+
 class UsersResource(Resource):
 
     def get(self) -> str:
@@ -16,6 +16,7 @@ class UsersResource(Resource):
         user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
 
         return user_object_list_serialized
+
 
     def post(self) -> str:
         """CREATE a new user"""
