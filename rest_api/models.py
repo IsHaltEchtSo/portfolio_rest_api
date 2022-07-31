@@ -1,10 +1,11 @@
+from flask import current_app as app
 from sqlalchemy import Column, ForeignKey, Integer, String, Table, \
                         create_engine, func, select
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from typing_extensions import Self
 
-engine = create_engine('postgresql+psycopg2://deniz@localhost:5555/rest_api', echo=False)
+engine = create_engine(app.config['DATABASE_URI'], echo=False)
 Session = sessionmaker(bind=engine, expire_on_commit=False)
 Base = declarative_base(bind=engine)
 
