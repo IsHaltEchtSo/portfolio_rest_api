@@ -96,6 +96,21 @@ class FollowingResource(Resource):
 
     def patch(self):
         """UPDATE a user with a new following"""
+        session = Session()
+
+        follower_id, followee_id = request.form.get('follower_id'), request.form.get('followee_id')
+        follower_user_object = session.query(User).get(follower_id)
+        followee_user_object = session.query(User).get(followee_id)
+
+        if follower_user_object and followee_user_object:
+            follower_user_object.following.append(followee_user_object)
+            session.add(follower_user_object)
+            session.commit()
+
+        follower_user_object_serialized = UserSchema().dump(follower_user_object)
+        return follower_user_object_serialized
+
+
 
 
 
@@ -110,7 +125,7 @@ class FollowerResource(Resource):
 
         return user_object_list_serialized
 
-
+    #TODO delete patch, does not make sense to choose someone as your follower
     def patch(self):
         """UPDATE a user with a new follower"""
         session = Session()
