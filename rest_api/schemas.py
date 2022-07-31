@@ -1,4 +1,4 @@
-from models import User
+from rest_api.models import User
 from marshmallow import Schema, fields, post_load
 
 class UserSchema(Schema):
