@@ -30,6 +30,10 @@ class User(Base):
         secondaryjoin=follower_association.c.follower_id ==id
     )
 
+    def __init__(self, name: str, age: int) -> None:
+        self.name = name
+        self.age = age
+
     @hybrid_property
     def follower_count(self) -> int:
         return len(self.follower)
