@@ -113,4 +113,18 @@ class FollowerResource(Resource):
 
     def patch(self):
         """UPDATE a user with a new follower"""
-        pass
+        session = Session()
+
+        follower_id, followee_id = request.form.get('follower_id'), request.form.get('followee_id')
+        follower_user_object = session.query(User).get(follower_id)
+        followee_user_object = session.query(User).get(followee_id)
+
+        if follower_user_object and followee_user_object:
+            followee_user_object.follower.append(follower_user_object)
+
+        session.add(followee_user_object)
+        session.commit()
+
+        followee_user_object_serialized = UserSchema().dump(followee_user_object)
+
+        return followee_user_object_serialized
