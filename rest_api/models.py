@@ -1,6 +1,6 @@
 from flask import current_app as app
 from sqlalchemy import Column, ForeignKey, Integer, String, Table, \
-                        create_engine, func, select)
+                        create_engine, func, select
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 from typing_extensions import Self
@@ -32,21 +32,21 @@ class User(Base):
     )
 
     @hybrid_property
-    def follower_count(self):
+    def follower_count(self) -> int:
         return len(self.follower)
 
     @follower_count.expression
-    def follower_count(cls):
+    def follower_count(cls) -> int:
         return select([func.count()]) \
             .where(cls.id == follower_association.c.followee_id) \
             .scalar_subquery()
 
     @hybrid_property
-    def following_count(self):
+    def following_count(self) -> int:
         return len(self.following)
 
     @following_count.expression
-    def following_count(cls):
+    def following_count(cls) -> int:
         return select([func.count()]) \
             .where(cls.id == follower_association.c.follower_id) \
             .scalar_subquery()
