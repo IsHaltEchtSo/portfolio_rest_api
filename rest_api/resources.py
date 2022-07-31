@@ -94,6 +94,10 @@ class FollowingResource(Resource):
         return user_object_list_serialized
 
 
+    def patch(self):
+        """UPDATE a user with a new following"""
+
+
 
 class FollowerResource(Resource):
 
@@ -105,3 +109,8 @@ class FollowerResource(Resource):
         user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
 
         return user_object_list_serialized
+
+
+    def patch(self):
+        """UPDATE a user with a new follower"""
+        pass
