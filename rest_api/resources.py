@@ -1,3 +1,4 @@
+from sqlalchemy import desc
 from rest_api.models import Session, User
 from rest_api.schemas import UserSchema
 
@@ -85,7 +86,13 @@ class FollowingResource(Resource):
 
     def get(self):
         """GET all users ordered by following_count in descending order"""
-        pass
+        session = Session()
+
+        user_object_list = session.query(User).order_by(desc(User.following_count)).all()
+        user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
+
+        return user_object_list_serialized
+
 
 
 class FollowerResource(Resource):
