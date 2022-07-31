@@ -99,3 +99,9 @@ class FollowerResource(Resource):
 
     def get(self):
         """GET all users ordered by follower_count in descending order"""
+        session = Session()
+
+        user_object_list = session.query(User).order_by(desc(User.follower_count)).all()
+        user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
+
+        return user_object_list_serialized
