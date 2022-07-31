@@ -18,7 +18,7 @@ class UsersResource(Resource):
 
     def post(self):
         """CREATE a new user"""
-        new_user_object = User(name=request.form['name'], age=request.form['age'])
+        new_user_object = UserSchema().load(data=request.form)
         
         session = Session()
         session.add(new_user_object)
@@ -32,15 +32,53 @@ class UserResource(Resource):
 
     def get(self, user_id):
         """GET a user by id"""
-        pass
+        session = Session()
+
+        user_object = session.query(User).get(user_id)
+
+        if user_object:
+            user_object_serialized = UserSchema().dump(user_object)
+
+            return user_object_serialized
+
+        return None
+
 
     def patch(self, user_id):
         """UPDATE a user by id"""
-        pass
+        session = Session()
+
+        user_object = session.query(User).get(user_id)
+
+        if user_object:
+
+            if request.form.get('name'):
+                user_object.name = request.form['name']
+            
+            if request.form.get('age'):
+                user_object.age = request.form['age']
+
+            session.add(user_object)
+            session.commit()
+
+        user_object_serialized = UserSchema().dump(user_object)
+
+        return user_object_serialized
+
 
     def delete(self, user_id):
         """DELETE a user by id"""
-        pass
+        session = Session()
+
+        user_object = session.query(User).get(user_id)
+
+        if user_object:
+            session.delete(user_object)
+            session.commit()
+
+        user_object_serialized = UserSchema().dump(user_object)
+
+        return user_object_serialized
 
 
 class FollowingResource(Resource):
