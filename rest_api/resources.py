@@ -8,7 +8,7 @@ from flask_restful import Resource
 #TODO add type hints for resource methods
 class UsersResource(Resource):
 
-    def get(self):
+    def get(self) -> str:
         """GET all users"""
         session = Session()
 
@@ -17,7 +17,7 @@ class UsersResource(Resource):
 
         return user_object_list_serialized
 
-    def post(self):
+    def post(self) -> str:
         """CREATE a new user"""
         new_user_object = UserSchema().load(data=request.form)
         
@@ -31,7 +31,7 @@ class UsersResource(Resource):
 
 class UserResource(Resource):
 
-    def get(self, user_id):
+    def get(self, user_id) -> str:
         """GET a user by id"""
         session = Session()
 
@@ -45,7 +45,7 @@ class UserResource(Resource):
         return None
 
 
-    def patch(self, user_id):
+    def patch(self, user_id) -> str:
         """UPDATE a user by id"""
         session = Session()
 
@@ -67,7 +67,7 @@ class UserResource(Resource):
         return user_object_serialized
 
 
-    def delete(self, user_id):
+    def delete(self, user_id) -> str:
         """DELETE a user by id"""
         session = Session()
 
@@ -84,7 +84,7 @@ class UserResource(Resource):
 
 class FollowingResource(Resource):
 
-    def get(self):
+    def get(self) -> str:
         """GET all users ordered by following_count in descending order"""
         session = Session()
 
@@ -94,7 +94,7 @@ class FollowingResource(Resource):
         return user_object_list_serialized
 
 
-    def patch(self):
+    def patch(self) -> str:
         """UPDATE a user with a new following"""
         session = Session()
 
@@ -111,12 +111,9 @@ class FollowingResource(Resource):
         return follower_user_object_serialized
 
 
-
-
-
 class FollowerResource(Resource):
 
-    def get(self):
+    def get(self) -> str:
         """GET all users ordered by follower_count in descending order"""
         session = Session()
 
