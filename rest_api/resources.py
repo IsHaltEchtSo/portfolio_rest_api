@@ -1,3 +1,7 @@
+from rest_api.models import Session, User
+from rest_api.schemas import UserSchema
+
+from flask import request
 from flask_restful import Resource
 
 
@@ -5,11 +9,23 @@ class UsersResource(Resource):
 
     def get(self):
         """GET all users"""
-        pass
+        session = Session()
+
+        user_object_list = session.query(User).all()
+        user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
+
+        return user_object_list_serialized
 
     def post(self):
         """CREATE a new user"""
-        pass
+        new_user_object = User(name=request.form['name'], age=request.form['age'])
+        
+        session = Session()
+        session.add(new_user_object)
+        session.commit()
+
+        new_user_object_serialized = UserSchema().dump(new_user_object)
+        return new_user_object_serialized
 
 
 class UserResource(Resource):
