@@ -16,7 +16,7 @@ follower_association = Table(
     Column('followee_id', ForeignKey('user.id'), primary_key=True)
 )
 
-
+#TODO change User-class name to UserModel-class name
 class User(Base):
     __tablename__ = 'user'
     

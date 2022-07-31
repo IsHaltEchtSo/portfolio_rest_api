@@ -4,7 +4,7 @@ from rest_api.schemas import UserSchema
 from flask import request
 from flask_restful import Resource
 
-
+#TODO add type hints for resource methods
 class UsersResource(Resource):
 
     def get(self):
