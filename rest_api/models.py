@@ -17,15 +17,14 @@ follower_association = Table(
 )
 
 
-#TODO change User-class name to UserModel-class name
-class User(Base):
+class UserModel(Base):
     __tablename__ = 'user'
     
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     age = Column(Integer)
     follower = relationship(
-        'User', backref='following', 
+        'UserModel', backref='following', 
         secondary=follower_association,
         primaryjoin=follower_association.c.followee_id == id,
         secondaryjoin=follower_association.c.follower_id ==id

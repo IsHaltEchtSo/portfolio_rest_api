@@ -1,5 +1,5 @@
 from sqlalchemy import desc
-from rest_api.models import Session, User
+from rest_api.models import Session, UserModel
 from rest_api.schemas import UserSchema
 
 from flask import request
@@ -12,7 +12,7 @@ class UsersResource(Resource):
         """GET all users"""
         session = Session()
 
-        user_object_list = session.query(User).all()
+        user_object_list = session.query(UserModel).all()
         user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
 
         return user_object_list_serialized
@@ -36,7 +36,7 @@ class UserResource(Resource):
         """GET a user by id"""
         session = Session()
 
-        user_object = session.query(User).get(user_id)
+        user_object = session.query(UserModel).get(user_id)
 
         if user_object:
             user_object_serialized = UserSchema().dump(user_object)
@@ -50,7 +50,7 @@ class UserResource(Resource):
         """UPDATE a user by id"""
         session = Session()
 
-        user_object = session.query(User).get(user_id)
+        user_object = session.query(UserModel).get(user_id)
 
         if user_object:
 
@@ -72,7 +72,7 @@ class UserResource(Resource):
         """DELETE a user by id"""
         session = Session()
 
-        user_object = session.query(User).get(user_id)
+        user_object = session.query(UserModel).get(user_id)
 
         if user_object:
             session.delete(user_object)
@@ -89,7 +89,7 @@ class FollowingResource(Resource):
         """GET all users ordered by following_count in descending order"""
         session = Session()
 
-        user_object_list = session.query(User).order_by(desc(User.following_count)).all()
+        user_object_list = session.query(UserModel).order_by(desc(UserModel.following_count)).all()
         user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
 
         return user_object_list_serialized
@@ -100,8 +100,8 @@ class FollowingResource(Resource):
         session = Session()
 
         follower_id, followee_id = request.form.get('follower_id'), request.form.get('followee_id')
-        follower_user_object = session.query(User).get(follower_id)
-        followee_user_object = session.query(User).get(followee_id)
+        follower_user_object = session.query(UserModel).get(follower_id)
+        followee_user_object = session.query(UserModel).get(followee_id)
 
         if follower_user_object and followee_user_object:
             follower_user_object.following.append(followee_user_object)
@@ -118,7 +118,7 @@ class FollowerResource(Resource):
         """GET all users ordered by follower_count in descending order"""
         session = Session()
 
-        user_object_list = session.query(User).order_by(desc(User.follower_count)).all()
+        user_object_list = session.query(UserModel).order_by(desc(UserModel.follower_count)).all()
         user_object_list_serialized = UserSchema().dump(user_object_list, many=True)
 
         return user_object_list_serialized

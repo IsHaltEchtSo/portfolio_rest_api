@@ -1,4 +1,4 @@
-from rest_api.models import User
+from rest_api.models import UserModel
 from marshmallow import Schema, fields, post_load
 
 
@@ -14,4 +14,4 @@ class UserSchema(Schema):
 
     @post_load
     def make_user(self, data, **kwargs):
-        return User(**data)
+        return UserModel(**data)
