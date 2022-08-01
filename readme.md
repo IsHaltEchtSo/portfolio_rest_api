@@ -3,11 +3,7 @@
 
 [**Architecture**](#architecture) |
 [**API Endpoints**](#api-endpoints) |
-[**Installation Guide**](#installation-guide) |
-[**Examples**](#examples) |
-
-
-
+[**Examples**](#examples) 
 
 ## **Architecture**
 <img src="rest_api/assets/Techstack.png" height="150">  
@@ -17,8 +13,6 @@
 /user - Methods: [GET, PATCH, DELETE]  
 /following - Methods: [GET, PATCH]  
 /follower - Methods: [GET]
-
-## **Installation Guide**
 
 ## **Examples** 
 
