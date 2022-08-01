@@ -6,7 +6,7 @@
 [**Examples**](#examples) 
 
 ## **Architecture**
-<img src="rest_api/assets/Techstack.png" height="150">  
+<img src="rest_api/assets/Techstack.png" height="350">  
 
 ## **API Endpoints**
 /users - Methods: [GET, POST]  
