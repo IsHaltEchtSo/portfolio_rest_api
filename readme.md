@@ -1,5 +1,5 @@
 # PORTFOLIO REST API
-*A minimal REST API using [flask](https://flask.palletsprojects.com/en/2.1.x/)*
+*A minimal REST API using [Flask](https://flask.palletsprojects.com/en/2.1.x/)*
 
 [**Architecture**](#architecture) |
 [**API Endpoints**](#api-endpoints) |
@@ -10,6 +10,7 @@
 
 
 ## **Architecture**
+<img src="rest_api/assets/Techstack.png" height="150">  
 
 ## **API Endpoints**
 /users - Methods: [GET, POST]  
