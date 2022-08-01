@@ -1,5 +1,6 @@
 # PORTFOLIO REST API
-*A minimal REST API using [Flask](https://flask.palletsprojects.com/en/2.1.x/)*
+*A minimal REST API using [Flask](https://flask.palletsprojects.com/en/2.1.x/).*
+*Implements CRUD operations on user-objects and the functionality to follow other user.*
 
 [**Architecture**](#architecture) |
 [**API Endpoints**](#api-endpoints) |
