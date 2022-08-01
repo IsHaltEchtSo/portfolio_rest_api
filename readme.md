@@ -12,6 +12,10 @@
 ## **Architecture**
 
 ## **API Endpoints**
+/users - Methods: [GET, POST]  
+/user - Methods: [GET, PATCH, DELETE]  
+/following - Methods: [GET, PATCH]  
+/follower - Methods: [GET]
 
 ## **Installation Guide**
 
