@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 
 
+
 def create_app():
     app = Flask(__name__)
 
@@ -12,7 +13,6 @@ def create_app():
         app_initializer.init_app()
 
         return app
-
     except Exception as ex:
         raise ex
 
@@ -50,6 +50,5 @@ class AppInitializer:
         Main entry point which will delegate to other methods
         in order to fully initialize the app
         """
-
         with self.flask_app.app_context():
             self.init_app_in_ctx()
