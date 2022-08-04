@@ -7,7 +7,6 @@ from flask_restful import Resource
 
 
 class UsersResource(Resource):
-
     def get(self) -> str:
         """GET all users"""
         session = Session()
@@ -31,7 +30,6 @@ class UsersResource(Resource):
 
 
 class UserResource(Resource):
-
     def get(self, user_id) -> str:
         """GET a user by id"""
         session = Session()
@@ -84,7 +82,6 @@ class UserResource(Resource):
 
 
 class FollowingResource(Resource):
-
     def get(self) -> str:
         """GET all users ordered by following_count in descending order"""
         session = Session()
@@ -113,7 +110,6 @@ class FollowingResource(Resource):
 
 
 class FollowerResource(Resource):
-
     def get(self) -> str:
         """GET all users ordered by follower_count in descending order"""
         session = Session()
