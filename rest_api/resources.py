@@ -26,6 +26,7 @@ class UsersResource(Resource):
         session.commit()
 
         new_user_object_serialized = UserSchema().dump(new_user_object)
+        
         return new_user_object_serialized
 
 
@@ -38,7 +39,7 @@ class UserResource(Resource):
 
         if user_object:
             user_object_serialized = UserSchema().dump(user_object)
-
+            
             return user_object_serialized
 
         return None
@@ -51,7 +52,6 @@ class UserResource(Resource):
         user_object = session.query(UserModel).get(user_id)
 
         if user_object:
-
             if request.form.get('name'):
                 user_object.name = request.form['name']
             
@@ -62,7 +62,7 @@ class UserResource(Resource):
             session.commit()
 
         user_object_serialized = UserSchema().dump(user_object)
-
+        
         return user_object_serialized
 
 
@@ -106,6 +106,7 @@ class FollowingResource(Resource):
             session.commit()
 
         follower_user_object_serialized = UserSchema().dump(follower_user_object)
+        
         return follower_user_object_serialized
 
 
